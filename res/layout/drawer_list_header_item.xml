@@ -1,0 +1,26 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+	<RelativeLayout
+	    android:id="@+id/layout_header"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:background="#242424"
+	    android:orientation="horizontal"
+	    android:paddingBottom="5dp"
+	    android:paddingTop="5dp" >
+	    
+	    <TextView
+	        android:id="@+id/navi_menu_text2"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:paddingLeft="5dp"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
+	        android:textSize="15dp"
+	        android:textColor="#aaaaaa" />
+	    
+	</RelativeLayout>
+
+</RelativeLayout>

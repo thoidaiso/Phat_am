@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Phật âm</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello">Phật âm v1.0</string>
+	<string name="github">GitHub</string>
+	<string name="github_label">SlidingMenu on GitHub</string>
+	<string name="title_bar_slide">Phật âm</string>
+	<string name="category_title">Phật âm</string>
+	<string-array name="list_category_array">
+        <item>Chuyên mục</item>
+        <item>Tác giả</item>
+        <item>Top Videos</item>
+        <item>New Videos</item>
+        <item>Random Videos</item>
+        <item>Liên hệ</item>
+    </string-array>
+    <string name="setting_title">Công cụ</string>
+    <string-array name="list_setting_array">
+	    <item>Cài đặt</item>
+	    <item>Đóng ứng dụng</item>
+	</string-array>
+	<string-array name="detail_category_array">
+        <item>Kinh- Chú</item>
+        <item>Pháp thoại</item>
+        <item>Sách nói</item>
+        <item>Tân nhạc Phật giáo</item>
+        <item>Cổ nhạc Phật giáo</item>
+        <item>Nhạc thiền</item>
+        <item>Phim truyện</item>
+        <item>Phim tài liệu</item>
+        <item>Phật pháp nhiệm màu</item>
+        <item>Ánh sáng phật pháp</item>
+        <item>Một ngày an lạc</item>
+    </string-array>
+</resources>
