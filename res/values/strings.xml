@@ -34,4 +34,32 @@
         <item>Ánh sáng phật pháp</item>
         <item>Một ngày an lạc</item>
     </string-array>
+    
+	<string-array name="detail_authors_array">
+        <item>Phật âm</item>
+        <item>Thích Nhật Từ</item>
+        <item>Thích Trí Huệ</item>
+        <item>Pháp Sư Tịnh Không</item>
+        <item>Thích Phước Tiến</item>
+        <item>Thích Pháp Hòa</item>
+        <item>Thích Thiện Thuận</item>
+        <item>Thích Thanh Từ</item>
+        <item>Thích Minh Thành</item>
+        <item>Thích Bửu Chánh</item>
+        <item>Thích Giác Hóa</item>
+        <item>Thích Chân Quang</item>
+        <item>Thích Giác Nhàn</item>
+        <item>Thích Trí Quảng</item>
+        <item>Diệu Pháp Âm</item>
+        <item>Võ Tá Hân</item>
+        <item>Ban Hoằng Pháp</item>
+        <item>Ngân Huệ</item>
+        <item>Thích Đồng Thành</item>
+        <item>Thích Lệ Trang</item>
+        <item>Thích Chánh Định</item>
+        <item>Cư Sĩ Tánh Thấy</item>
+        <item>Thích Minh Chơn</item>
+        <item>Thích Viên Trí</item>
+        <item>Thích Nữ Như Thủy</item>
+    </string-array>
 </resources>
