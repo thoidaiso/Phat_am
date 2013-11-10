@@ -16,7 +16,7 @@ import com.example.phat_am.R;
 
 public class authors_fragment extends SherlockFragment{
 
-	public static ArrayList<Model_Category> list_model = new ArrayList<Model_Category>();
+	public ArrayList<Model_Category> list_model = new ArrayList<Model_Category>();
 	ListView list;
 	CategoryAdapter adapter;
 	

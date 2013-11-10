@@ -7,19 +7,28 @@ import java.util.List;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.showlistcontent.authors_fragment;
 import com.example.showlistcontent.category_fragment;
+import com.example.showlistcontent.home_fragment;
+import com.example.showlistcontent.video_fragment;
+import com.example.showlistcontent.VideoMainActivity;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 
+import android.app.ActionBar;
+import android.app.SearchManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.SearchView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -28,6 +37,7 @@ public class MainActivity extends SherlockFragmentActivity {
 	SlidingMenu menu;
 	ListView list;
 	ArrayList<String> list_content_menu = new ArrayList<String>();
+	private Menu option_menu;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,6 +63,10 @@ public class MainActivity extends SherlockFragmentActivity {
         list.setOnItemClickListener(onItemClick);
         list.setDivider(null);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        
+        FragmentManager manager = getSupportFragmentManager();
+        Fragment fragment = new home_fragment();
+		manager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 	}
 	
 	private OnItemClickListener onItemClick = new OnItemClickListener() {
@@ -65,24 +79,92 @@ public class MainActivity extends SherlockFragmentActivity {
 			Fragment fragment = null;
 			String name = list_content_menu.get(arg2);
 			menu.toggle();
-			if (name.equals("Chuyên mục"))
+			Log.v("name::::",name);
+			if (name.equals("Home"))
+			{
+				fragment = new home_fragment();
+				manager.beginTransaction().replace(R.id.content_frame, fragment).addToBackStack(null).commit();
+			}
+			else if (name.equals("Chuyên mục"))
 			{
 				fragment = new category_fragment();
-				manager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+				manager.beginTransaction().replace(R.id.content_frame, fragment).addToBackStack(null).commit();
+//				onCreateOptionsMenuBase(option_menu);
 			}
 			else if (name.equals("Tác giả"))
 			{
 				fragment = new authors_fragment();
-				manager.beginTransaction().replace(R.id.content_frame, fragment).commit();			}
+				manager.beginTransaction().replace(R.id.content_frame, fragment).addToBackStack(null).commit();	
+				onCreateOptionsMenu1(option_menu);
+			}
+			else if (name.equals("Top Videos"))
+			{
+				Intent i = new Intent(getApplicationContext(), VideoMainActivity.class);
+				i.putExtra("type", 0);
+                startActivity(i);
+//				fragment = new video_fragment(0);
+//				manager.beginTransaction().replace(R.id.content_frame, fragment).addToBackStack(null).commit();	
+//				onCreateOptionsMenu1(option_menu);
+			}
+			else if (name.equals("New Videos"))
+			{
+				Intent i = new Intent(getApplicationContext(), VideoMainActivity.class);
+				i.putExtra("type", 1);
+                startActivity(i);
+//				fragment = new video_fragment(1);
+//				manager.beginTransaction().replace(R.id.content_frame, fragment).addToBackStack(null).commit();	
+//				onCreateOptionsMenu1(option_menu);
+			}
+			else if (name.equals("Random Videos"))
+			{
+				Intent i = new Intent(getApplicationContext(), VideoMainActivity.class);
+				i.putExtra("type", 2);
+                startActivity(i);
+//				fragment = new video_fragment(2);
+//				manager.beginTransaction().replace(R.id.content_frame, fragment).addToBackStack(null).commit();	
+//				onCreateOptionsMenu1(option_menu);
+			}
 		}
 	};
 	
 	@Override
-	public boolean onCreateOptionsMenu(com.actionbarsherlock.view.Menu menu) {
+	public boolean onCreateOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
+		menu.clear();
 		getSupportMenuInflater().inflate(R.menu.main, menu);
+		option_menu = menu;
 		return true;
 	}
+	
+	public boolean onCreateOptionsMenuBase(Menu menu) {
+		// TODO Auto-generated method stub
+		MenuInflater inflater = getSupportMenuInflater();
+	    menu.clear();
+	    inflater.inflate(R.menu.main, menu);
+	    option_menu = menu;
+	    return true;
+	}
+
+	
+//	@Override
+	public boolean onCreateOptionsMenu1(Menu menu) {
+	    MenuInflater inflater = getSupportMenuInflater();
+	    menu.clear();
+	    inflater.inflate(R.menu.search_menu, menu);
+	    option_menu = menu;
+
+	    // Associate searchable configuration with the SearchView
+//	    SearchManager searchManager =
+//	           (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+//	    SearchView searchView =
+//	            (SearchView) menu.findItem(R.id.search).getActionView();
+//	    searchView.setSearchableInfo(
+//	            searchManager.getSearchableInfo(getComponentName()));
+//
+			
+	    return true;
+	}
+	
 	
 	@Override
 	public void onBackPressed() {
@@ -94,17 +176,6 @@ public class MainActivity extends SherlockFragmentActivity {
             super.onBackPressed();
         }
 	}
-//	@Override
-//		public boolean onOptionsItemSelected(android.view.MenuItem item) {
-//			// TODO Auto-generated method stub
-//			switch (item.getItemId()) {
-//			case android.R.id.home:
-//				menu.toggle();
-//				return true;
-//			}
-//			return super.onOptionsItemSelected(item);
-//		}
-	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
@@ -132,8 +203,10 @@ public class MainActivity extends SherlockFragmentActivity {
 				R.drawable.ic_menu_contact
 
 				};
+		items.add(new ListItem("Home", R.drawable.home, getApplicationContext()));
 		//Start to add category to list view navigation
 		items.add(new Header(category));
+		list_content_menu.add("Home");
 		list_content_menu.add(category);
 		
 		for (int i =0; i< list_category_array.length; i++)

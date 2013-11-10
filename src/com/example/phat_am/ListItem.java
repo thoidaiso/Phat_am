@@ -5,7 +5,7 @@ package com.example.phat_am;
 import com.example.phat_am.TwoTextArrayAdapter.RowType;
 
 import android.content.Context;
-import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -43,7 +43,7 @@ public class ListItem implements Item {
 //        text1.setTypeface(tf);
         image1.setImageResource(icon);
         
-        View divider =(View)view.findViewById(R.id.divider);
+        View divider =view.findViewById(R.id.divider);
         if ( text1.equals("Liên hệ"))
         	divider.setBackgroundResource(R.color.nav_background);
 //        #797679

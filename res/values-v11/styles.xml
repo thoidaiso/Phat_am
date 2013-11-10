@@ -6,6 +6,8 @@
     -->
     <style name="AppBaseTheme" parent="android:Theme.Holo.Light">
         <!-- API 11 theme customizations can go here. -->
+         <item name="android:homeAsUpIndicator">@drawable/home_back</item>
+        <item name="homeAsUpIndicator">@drawable/home_back</item>
     </style>
 
 </resources>

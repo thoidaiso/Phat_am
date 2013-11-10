@@ -29,6 +29,6 @@
         android:layout_toRightOf="@id/navi_menu_icon"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#bbbbbb"
-        android:textSize="17sp"/>
+        android:textSize="18sp"/>
     
 </RelativeLayout>

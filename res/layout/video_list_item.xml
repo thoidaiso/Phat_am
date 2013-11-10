@@ -1,36 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:minHeight="50dp"
-    android:orientation="horizontal"
-    android:background="@drawable/content_list_color" >	
-    
-    <View 
-        android:id="@+id/divider"
-	    android:layout_width="fill_parent"
-	    android:layout_height="0.4px"
-	    android:background="#d7d7d7" />
-    
-    <ImageView
-        android:id="@+id/video_list_icon"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="0dip"
-        android:layout_marginTop="7dip"
-        android:layout_width="30dip"
-        android:layout_height="30dip" 
-        android:layout_centerHorizontal="true"
-        android:contentDescription="image about video"/>
-
-    <TextView
-        android:id="@+id/video_list_text"
-        android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+   	android:padding="5dip"
+   	android:background="@drawable/content_list_color">
+    <LinearLayout 
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="8dip"
-        android:layout_toRightOf="@id/video_list_icon"
-        android:paddingTop="8dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#797979"
-        android:textSize="17sp"/>
+        android:id="@+id/thumbnail"
+        android:padding="1dip"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="2dip">
+        <ImageView 
+            android:id="@+id/video_list_image"
+            android:layout_width="110dip"
+            android:layout_height="60dip"/>
+    </LinearLayout>
+    <!--Title of Video -->
+    <TextView 
+        android:id="@+id/video_list_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:text="As long as you love me"
+        android:textSize="16dip"
+        android:textColor="#000"/>
+	
+    <!-- Astist Name -->
+    <TextView 
+        android:id="@+id/video_list_astist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/video_list_title"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:text="Luan"
+        android:textSize="13dip"
+        android:textColor="#989393"
+        android:layout_marginTop="5dip"/>
     
 </RelativeLayout>
