@@ -20,6 +20,7 @@ import com.example.phat_am.R.drawable;
 import com.example.phat_am.R.id;
 import com.example.phat_am.R.layout;
 import com.example.phat_am.VideoActivity;
+import com.example.phat_am.VideoViewActivity;
 
 public class VideoInfoActivity extends SherlockActivity{
 	
@@ -65,8 +66,8 @@ public class VideoInfoActivity extends SherlockActivity{
 				long arg3) {
 			// TODO Auto-generated method stub
 			Log.v("Click item chapter",""+arg2);
-			Intent i = new Intent(getApplicationContext(), VideoActivity.class);
-			i.putExtra("link", list_data.get(arg2).toString());
+			Intent i = new Intent(getApplicationContext(), VideoViewActivity.class);
+//			i.putExtra("link", list_data.get(arg2).toString());
             startActivity(i);
 		}
 	};

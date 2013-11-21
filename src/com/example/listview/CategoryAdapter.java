@@ -28,14 +28,14 @@ public class CategoryAdapter extends ArrayAdapter<Model_Category>{
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 //		return super.getView(position, convertView, parent);
-		Log.v("in get view of category", "asdasda");
+//		Log.v("in get view of category", "asdasda");
 		View rowView=convertView;
 		if(rowView == null)
 		{
 			LayoutInflater inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			rowView=inflater.inflate(R.layout.category_list_item, null);
 		}
-		Log.v("in get view of category", "2");
+//		Log.v("in get view of category", "2");
 //		rowView.setOnClickListener(new View.OnClickListener() {
 //			
 //			public void onClick(View v) {

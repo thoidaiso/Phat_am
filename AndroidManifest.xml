@@ -39,6 +39,9 @@
         <activity android:name="com.example.phat_am.VideoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" >
         </activity>
+        <activity android:name="com.example.phat_am.VideoViewActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" >
+        </activity>
         <activity android:name=".SearchResultsActivity">
 		    <intent-filter>
 		        <action android:name="android.intent.action.SEARCH" />
@@ -47,6 +50,8 @@
 		<activity android:name="com.example.showlistcontent.VideoMainActivity">
 		</activity>
 		<activity android:name="com.example.showlistcontent.VideoInfoActivity">
+		</activity>
+		<activity android:name="com.example.utils.VideoViewCustom">
 		</activity>
     </application>
 

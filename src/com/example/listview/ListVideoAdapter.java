@@ -38,7 +38,7 @@ public class ListVideoAdapter extends ArrayAdapter<Model_Video>{
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 //		return super.getView(position, convertView, parent);
-		Log.v("get view of video", "1123123123");
+//		Log.v("get view of video", "1123123123");
 		View rowView=convertView;
 		ViewHolder viewHolder;
 		if(rowView == null)
@@ -51,7 +51,7 @@ public class ListVideoAdapter extends ArrayAdapter<Model_Video>{
 			viewHolder.image = (ImageView) rowView.findViewById(R.id.video_list_image);
 			rowView.setTag(viewHolder);
 		  } 
-		Log.v("get view of video", "2");
+//		Log.v("get view of video", "2");
 //		rowView.setOnClickListener(new View.OnClickListener() {
 //			
 //			public void onClick(View v) {
@@ -65,13 +65,13 @@ public class ListVideoAdapter extends ArrayAdapter<Model_Video>{
 //			}
 //		});
 		viewHolder=(ViewHolder)rowView.getTag();
-		Log.v("get view of video", list.get(position).getName());
+//		Log.v("get view of video", list.get(position).getName());
 		viewHolder.name.setText(list.get(position).getName().toString());
-		Log.v("get view of video", "4");
+//		Log.v("get view of video", "4");
 		viewHolder.author.setText("Tác giả: "+ list.get(position).getAuthor().toString());
-		Log.v("get view of video", "5");
+//		Log.v("get view of video", "5");
 		viewHolder.image.setImageBitmap(list.get(position).getImage());
-		Log.v("get view of video", "6");
+//		Log.v("get view of video", "6");
 		if (position %2 ==0)
 		{
 			rowView.setBackgroundColor(context.getResources().getColor(R.color.list_row_green));

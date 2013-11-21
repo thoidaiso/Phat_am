@@ -60,6 +60,7 @@ public class home_fragment extends SherlockFragment{
 //		Declare list view show info about how many category, author
 		String[] list_category = getResources().getStringArray(R.array.list_category_array);
 		String number = "";
+		list_model.clear();
 		for(int i=0; i<2; i++)
 		{
 			if (i==0)
@@ -94,7 +95,8 @@ public class home_fragment extends SherlockFragment{
 		String[] list_video = getResources().getStringArray(R.array.detail_video_array);
 		String[] list_author = getResources().getStringArray(R.array.detail_video_author_array);
 		Bitmap bm = BitmapFactory.decodeResource(this.getResources(), R.drawable.image);
-//		
+
+		list_model_new_video.clear();
 		for(int i=0; i<10; i++)
 		{
 			list_model_new_video.add(new Model_Video(bm, list_video[i], list_author[i]));
@@ -118,24 +120,26 @@ public class home_fragment extends SherlockFragment{
 		public void onItemClick(AdapterView<?> arg0, View view, int arg2,
 				long arg3) {
 			// TODO Auto-generated method stub
-			FragmentManager manager = getChildFragmentManager();
+			FragmentManager manger = getFragmentManager();
+//			FragmentManager childmanager = getChildFragmentManager();
 			Fragment fragment = null;
 			String name = list_model.get(arg2).getName();
 			if (name.equals("Chuyên mục"))
 			{
 				fragment = new category_fragment();
-				manager.beginTransaction().replace(R.id.home_fragment, fragment).addToBackStack(null).commit();
+//				childmanager.beginTransaction().replace(R.id.home_fragment, fragment).addToBackStack(null).commit();
 			}
 			else if (name.equals("Tác giả"))
 			{
 				fragment = new authors_fragment();
-				manager.beginTransaction().replace(R.id.home_fragment, fragment).addToBackStack(null).commit();	
+//				childmanager.beginTransaction().replace(R.id.home_fragment, fragment).addToBackStack(null).commit();	
 			}
 //			else if (name.equals("Top Videos"))
 //			{
 //				fragment = new top_video_fragment();
 //				manager.beginTransaction().replace(R.id.content_frame, fragment).commit();	
 //			}
+			manger.beginTransaction().replace(((ViewGroup)getView().getParent()).getId(), fragment).addToBackStack(null).commit();
 		}
 	};
 	

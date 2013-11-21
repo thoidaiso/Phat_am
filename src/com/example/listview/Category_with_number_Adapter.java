@@ -28,7 +28,7 @@ public class Category_with_number_Adapter extends ArrayAdapter<Model_Category_wi
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
 //		return super.getView(position, convertView, parent);
-		Log.v("in get view of category", "asdasda");
+//		Log.v("in get view of category", "asdasda");
 		View rowView=convertView;
 		if(rowView == null)
 		{
