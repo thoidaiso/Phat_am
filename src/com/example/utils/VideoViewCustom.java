@@ -33,4 +33,19 @@ public class VideoViewCustom extends VideoView {
 
         setMeasuredDimension(mForceWidth, mForceHeight);
     }
+    
+    @Override
+    public boolean canSeekForward() {
+        return true;
+    }
+
+    @Override
+    public boolean canSeekBackward() {
+        return true;
+    }
+
+    @Override
+    public boolean canPause() {
+        return true;
+    }
 }
