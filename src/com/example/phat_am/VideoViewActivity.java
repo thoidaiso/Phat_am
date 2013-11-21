@@ -123,7 +123,8 @@ public class VideoViewActivity extends SherlockActivity{
 		        vv.getHolder().setFixedSize(MeasureWidth, smallWidth);
 
 	    }
-		}
+	}
+	
 	
 	private class YourAsyncTask extends AsyncTask<Void, Void, Void>
     {
