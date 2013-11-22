@@ -43,7 +43,7 @@ public class SampleListFragment extends SherlockListFragment {
 		items.add(new Header(category));
 		for (int i =0; i< list_category_array.length; i++)
 		{
-			items.add(new ListItem(list_category_array[i], Icons_category[i]));
+			items.add(new ListItem(list_category_array[i], Icons_category[i], getActivity()));
 		}
 		
 		String setting = getResources().getString(R.string.setting_title);
@@ -57,7 +57,7 @@ public class SampleListFragment extends SherlockListFragment {
 		items.add(new Header(setting));
 		for (int i =0; i< list_setting_array.length; i++)
 		{
-		items.add(new ListItem(list_setting_array[i], Icons_setting[i]));
+		items.add(new ListItem(list_setting_array[i], Icons_setting[i], getActivity()));
 		}
 		TwoTextArrayAdapter adapter = new TwoTextArrayAdapter(getActivity(), items);
 		getListView().setDivider(null);
