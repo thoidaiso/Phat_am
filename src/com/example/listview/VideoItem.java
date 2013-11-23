@@ -2,14 +2,13 @@ package com.example.listview;
 
 import java.util.List;
 
-import android.provider.MediaStore.Video;
-
 public class VideoItem extends VideoInfo {
 	List<VideoInfo> related;
 	List<VideoInfo> same_artist;
 	List<VideoInfo> best_in_category;
 	List<Episode> episodes;
 	List<Tag> tags;
+
 	// Use for relate videos
 	public VideoItem(String uniq_id, String artist, String video_title,
 			String description, String yt_id, String yt_thumb, int site_views) {
@@ -24,7 +23,7 @@ public class VideoItem extends VideoInfo {
 
 	// Use for get video from category
 	public VideoItem(int id, String uniq_id, String artist, String video_title,
-			String description, String yt_id, String yt_thump, int site_views,
+			String description, String yt_id, String yt_thumb, int site_views,
 			String mp3) {
 		this.id = id;
 		this.uniq_id = uniq_id;
@@ -53,7 +52,8 @@ public class VideoItem extends VideoInfo {
 	public void setEpisode(List<Episode> episodes) {
 		this.episodes = episodes;
 	}
-	public void setTag(List<Tag> tags){
+
+	public void setTag(List<Tag> tags) {
 		this.tags = tags;
 	}
 }
