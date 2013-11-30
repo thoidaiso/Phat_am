@@ -16,52 +16,104 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import android.app.Activity;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
-import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.AttributeSet;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.Display;
+import android.view.View;
 import android.view.WindowManager;
-import android.webkit.WebSettings.PluginState;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.MediaController;
-import android.widget.VideoView;
-
-import com.actionbarsherlock.app.SherlockActivity;
+import android.widget.RemoteViews;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.example.listview.ListVideoAdapter;
 import com.example.listview.Model_Video;
+import com.example.showlistcontent.VideoMainActivity;
+import com.example.showlistcontent.video_fragment;
+import com.example.utils.Helper;
 import com.example.utils.VideoViewCustom;
 
-public class VideoViewActivity extends SherlockActivity{
+public class VideoViewActivity extends SherlockFragmentActivity{
 	
 	VideoViewCustom vv;
-	
 	String videoUrl;
 	MediaController mc;
 	int MeasureWidth = 0;
 	int MeasureHeight = 0;
 	Point p = new Point();
+	static int VIDEO_PAGE = 1;
+	Button button[] = new Button[3];
+	Button btn_more_video;
 //	WindowManager wm = getWindowManager();
-	public ArrayList<Model_Video> list_model = new ArrayList<Model_Video>();
-	ListView list;
-	ListVideoAdapter adapter;
+//	public ArrayList<Model_Video> list_model = new ArrayList<Model_Video>();
+//	ListView list;
+//	ListVideoAdapter adapter;
+	
+	private static boolean activityVisible;
+	public static boolean isActivityVisible() {
+	    return activityVisible;
+	  }  
+
+	public static void activityResumed() {
+	    activityVisible = true;
+	  }
+
+	  public static void activityPaused() {
+	    activityVisible = false;
+	  }
+	  
+	  @Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		VideoViewActivity.activityResumed();
+	}
+	 
+	 @Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		VideoViewActivity.activityPaused();
+	}
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.videoview);
+		
+		button[0] = (Button)findViewById(R.id.videoview_btn_show_related_video);
+		button[1] = (Button)findViewById(R.id.videoview_btn_show_same_author_video);
+		button[2] = (Button)findViewById(R.id.videoview_btn_show_hot_video);
+		for (int i=0; i<3; i++)
+		{
+			button[i].setOnClickListener(OnButtonClickListener);
+			button[i].setBackgroundColor(getResources().getColor(android.R.color.background_light));
+			button[i].setTag(i);
+		}
+		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN)
+			button[1].setBackground(getResources().getDrawable(R.drawable.red_gradient));
+		else
+			button[1].setBackgroundDrawable(getResources().getDrawable(R.drawable.red_gradient));
+		
+		Fragment fragment = new video_fragment("same_author", "rating");
+		FragmentManager manager = getSupportFragmentManager();
+		manager.beginTransaction().replace(R.id.videoview_fragment, fragment).commit();
+		btn_more_video = (Button)findViewById(R.id.videoview_btn_show_more_video);
+		btn_more_video.setOnClickListener(OnClickShowMoreVideo);
+		
 		vv = (VideoViewCustom) findViewById(R.id.VideoView);
 //		vv = (VideoViewCustom)vv;
 		mc = new MediaController(VideoViewActivity.this, false);
@@ -83,22 +135,11 @@ public class VideoViewActivity extends SherlockActivity{
         if (smallWidth > MeasureHeight/5*2)
         	smallWidth = MeasureHeight /5*2;
 		vv.setDimensions(smallWidth*4/3, smallWidth);
-		String[] list_video = getResources().getStringArray(R.array.detail_video_array);
-		String[] list_author = getResources().getStringArray(R.array.detail_video_author_array);
 		
-		Bitmap bm = BitmapFactory.decodeResource(this.getResources(), R.drawable.image);
-		
-		for(int i=0; i<5; i++)
-		{
-			list_model.add(new Model_Video(bm, list_video[i], list_author[i]));
-		}
-		
-		ListView list = (ListView)findViewById(R.id.videoview_list);
-		adapter = new ListVideoAdapter(this, list_model);
-		list.setAdapter(adapter);
 		
 		YourAsyncTask async = new YourAsyncTask();
 		async.execute();
+//		CustomNotification();
 	}
 	
 	@Override
@@ -125,7 +166,39 @@ public class VideoViewActivity extends SherlockActivity{
 	    }
 	}
 	
-	
+	//When click buttons to show type of video
+	private View.OnClickListener OnButtonClickListener = new View.OnClickListener() {
+			
+			@SuppressWarnings("deprecation")
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				for (int i=0; i<3; i++)
+					button[i].setBackgroundColor(getResources().getColor(android.R.color.background_light));
+				if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN)
+					v.setBackground(getResources().getDrawable(R.drawable.red_gradient));
+				else
+					v.setBackgroundDrawable(getResources().getDrawable(R.drawable.red_gradient));
+				VIDEO_PAGE = Integer.parseInt(v.getTag().toString());
+				Fragment fragment = null;
+				switch (VIDEO_PAGE) {
+				case 0:
+					fragment = new video_fragment("related", "rating");
+					break;
+				case 1:
+					fragment = new video_fragment("same_author", "rating");
+					break;
+				case 2:
+					fragment = new video_fragment("random", "rating");
+					break;
+				default:
+					break;
+				}
+				FragmentManager childmanager = getSupportFragmentManager();
+				childmanager.beginTransaction().replace(R.id.videoview_fragment, fragment).commit();
+				Log.v("click button", v.getTag().toString());
+			}
+		};
 	private class YourAsyncTask extends AsyncTask<Void, Void, Void>
     {
         ProgressDialog progressDialog;
@@ -247,5 +320,74 @@ protected static String extractYoutubeId(String url) throws MalformedURLExceptio
         }
         return id;
     }
+
+	public void CustomNotification() {
+		// Using RemoteViews to bind custom layouts into Notification
+		RemoteViews remoteViews = new RemoteViews(getPackageName(),
+				R.layout.customnotification);
+		
+		// Open NotificationView Class on Notification Click
+		Intent intent = new Intent(this, VideoViewActivity.class);
+		// Open NotificationView.java Activity
+		PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent,
+				PendingIntent.FLAG_UPDATE_CURRENT);
+	
+		NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+				// Set Icon
+				.setSmallIcon(R.drawable.cd_disk)
+				// Set Ticker Message
+				.setTicker(getString(R.string.hello))
+				// Dismiss Notification
+				.setAutoCancel(true)
+				// Set PendingIntent into Notification
+				.setContentIntent(null)
+				// Set RemoteViews into Notification
+				.setContent(remoteViews);
+	
+		
+		// Create Notification Manager
+		NotificationManager notificationmanager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+		// Build Notification with Notification Manager
+		notificationmanager.notify(0, builder.build());
+	
+	}
+	
+	private View.OnClickListener on_btn_play_click = new View.OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			Log.v("YOu click play in notify", "");
+		}
+	};
+	
+	//Onclick button More (Them) to watch more video
+		private View.OnClickListener OnClickShowMoreVideo = new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				//Top video
+				if (VIDEO_PAGE == 0)
+				{
+					Intent i = new Intent(getApplicationContext(), VideoMainActivity.class);
+					i.putExtra("type", 0);
+	                startActivity(i);
+				}
+				//New Video
+				else if (VIDEO_PAGE == 1)
+				{
+					Intent i = new Intent(getApplicationContext(), VideoMainActivity.class);
+					i.putExtra("type", 1);
+	                startActivity(i);
+				}
+				//Random Video
+				else if (VIDEO_PAGE == 2)
+				{
+					Intent i = new Intent(getApplicationContext(), VideoMainActivity.class);
+					i.putExtra("type", 2);
+	                startActivity(i);
+				}
+			}
+		};
 
 }

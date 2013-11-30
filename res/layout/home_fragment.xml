@@ -62,13 +62,10 @@
 			        android:text="@string/random_video"
 			        android:textSize="15dip"/>
 			</LinearLayout>
-			  <ListView 
-			    android:id="@+id/home_fragment_list_video"
-			    android:layout_width="match_parent"
-			    android:layout_height="wrap_content"
-			    android:paddingLeft="@dimen/list_padding"
-			    android:paddingRight="@dimen/list_padding"
-			    android:divider="#e8e8e8"/>
+			  <FrameLayout 
+			      android:id="@+id/home_fragment_fragment"
+			      android:layout_width="match_parent"
+			      android:layout_height="wrap_content"/>
 			  
 			  <Button 
 			      android:id="@+id/home_fragment_btn_show_more_video"

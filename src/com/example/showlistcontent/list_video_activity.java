@@ -16,60 +16,49 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
+import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.example.listview.CategoryAdapter;
 import com.example.listview.ListVideoAdapter;
 import com.example.listview.Model_Category;
 import com.example.listview.Model_Video;
 import com.example.phat_am.R;
-import com.example.utils.Helper;
 
-public class video_fragment extends SherlockFragment{
+public class list_video_activity extends SherlockActivity{
 
 	public ArrayList<Model_Video> list_model = new ArrayList<Model_Video>();
 	ListView list;
 	ListVideoAdapter adapter;
 	static String type;//top,random,new
 	static String order; //order by date,title,rating
-	static int limit = 8; //limit video will be show
+	static int limit; //limit video will be show
 	
-	public video_fragment()
-	{
-		this.type = "new";
-		this.order = "rating";
-		Log.v("video fragment type", ""+type);
-		Log.v("order", ""+order);
-	}
-	public video_fragment(String type, String order) {
-		// TODO Auto-generated constructor stub
-		this.type = type;
-		this.order = order;
-		Log.v("video fragment type", ""+type);
-		Log.v("order", ""+order);
-	}
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		View rootView = inflater.inflate(R.layout.list, container, false);
+		super.onCreate(savedInstanceState);
+		Bundle bun = getIntent().getExtras();
+		type = bun.getString("type");
+		order = bun.getString("order");
+		limit = bun.getInt("limit");
 		
+		setContentView(R.layout.list);
 		String[] list_video = getResources().getStringArray(R.array.detail_video_array);
 		String[] list_author = getResources().getStringArray(R.array.detail_video_author_array);
 		
 		Bitmap bm = BitmapFactory.decodeResource(this.getResources(), R.drawable.image);
 		
-		for(int i=0; i<8; i++)
+		for(int i=0; i<5; i++)
 		{
 			list_model.add(new Model_Video(bm, list_video[i], list_author[i]));
 		}
 		
-		ListView list = (ListView)rootView.findViewById(R.id.list_view);
-		adapter = new ListVideoAdapter(getSherlockActivity(), list_model, limit);
+		ListView list = (ListView)findViewById(R.id.list_view);
+		adapter = new ListVideoAdapter(this, list_model, 10);
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(OnItemClick);
-		Helper.getListViewSize(list);
-		return rootView;
 	}
+	
 	
 	private OnItemClickListener OnItemClick = new OnItemClickListener() {
 
@@ -78,7 +67,7 @@ public class video_fragment extends SherlockFragment{
 				long arg3) {
 			// TODO Auto-generated method stub
 			Log.v("u click",list_model.get(arg2).getName().toString());
-			Intent i = new Intent(getSherlockActivity(), VideoInfoActivity.class);
+			Intent i = new Intent(getApplicationContext(), VideoInfoActivity.class);
 			i.putExtra("link", list_model.get(arg2).getName().toString());
             startActivity(i);
 		}

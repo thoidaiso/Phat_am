@@ -1,4 +1,4 @@
-package com.example.showlistcontent;
+package loadmore_list;
 
 
 import java.util.ArrayList;
@@ -22,25 +22,26 @@ import com.example.listview.ListVideoAdapter;
 import com.example.listview.Model_Category;
 import com.example.listview.Model_Video;
 import com.example.phat_am.R;
+import com.example.showlistcontent.VideoInfoActivity;
 import com.example.utils.Helper;
 
-public class video_fragment extends SherlockFragment{
+public class loadmore_video_fragment extends SherlockFragment{
 
 	public ArrayList<Model_Video> list_model = new ArrayList<Model_Video>();
 	ListView list;
-	ListVideoAdapter adapter;
+	LoadmoreAdapter adapter = null;
 	static String type;//top,random,new
 	static String order; //order by date,title,rating
 	static int limit = 8; //limit video will be show
 	
-	public video_fragment()
+	public loadmore_video_fragment()
 	{
 		this.type = "new";
 		this.order = "rating";
 		Log.v("video fragment type", ""+type);
 		Log.v("order", ""+order);
 	}
-	public video_fragment(String type, String order) {
+	public loadmore_video_fragment(String type, String order) {
 		// TODO Auto-generated constructor stub
 		this.type = type;
 		this.order = order;
@@ -53,21 +54,31 @@ public class video_fragment extends SherlockFragment{
 		// TODO Auto-generated method stub
 		View rootView = inflater.inflate(R.layout.list, container, false);
 		
+		setRetainInstance(true);
 		String[] list_video = getResources().getStringArray(R.array.detail_video_array);
 		String[] list_author = getResources().getStringArray(R.array.detail_video_author_array);
 		
 		Bitmap bm = BitmapFactory.decodeResource(this.getResources(), R.drawable.image);
-		
-		for(int i=0; i<8; i++)
+		list_model.clear();
+		for(int i=0; i<15; i++)
 		{
 			list_model.add(new Model_Video(bm, list_video[i], list_author[i]));
 		}
 		
 		ListView list = (ListView)rootView.findViewById(R.id.list_view);
-		adapter = new ListVideoAdapter(getSherlockActivity(), list_model, limit);
+		if (adapter ==null)
+		{
+			Log.v("Add Info","====1");
+			adapter = new LoadmoreAdapter(getSherlockActivity(), list_model, limit);
+		}
+		else
+		{
+			adapter.startProgressAnimation();
+		}
+		Log.v("Set adapter","");
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(OnItemClick);
-		Helper.getListViewSize(list);
+//		Helper.getListViewSize(list);
 		return rootView;
 	}
 	

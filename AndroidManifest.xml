@@ -51,6 +51,8 @@
 		</activity>
 		<activity android:name="com.example.showlistcontent.VideoInfoActivity">
 		</activity>
+		<activity android:name="com.example.showlistcontent.list_video_activity">
+		</activity>
 		<activity android:name="com.example.utils.VideoViewCustom">
 		</activity>
     </application>

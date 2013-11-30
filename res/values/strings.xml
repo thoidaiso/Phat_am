@@ -14,6 +14,10 @@
 	<string name="top_video">Nổi bật</string>
 	<string name="new_video">Mới</string>
 	<string name="random_video">Ngẫu nhiên</string>
+	<string name="related_video">Video liên quan</string>
+	<string name="same_author_video">Video cùng Tác giả</string>
+	<string name="hot_video">Video hay</string>
+	
 	<string name="type_video_rating">Lượt xem</string>
 	<string name="type_video_date">Ngày</string>
 	<string name="type_video_title">Tiêu đề</string>
@@ -87,6 +91,13 @@
         <item>Tụng "Chú Đại Bi" (Bản Việt Văn, Có Chữ) (Dễ Học Thuộc) </item>
         <item>Nhạc Niệm Phật 4 Chữ "A Di Đà Phật" (Mới, Rất Hay)</item>
         <item>Tụng "Chú Đại Bi" (Mới)</item>
+        <item>Tụng "Kinh Diệu Pháp Liên Hoa" (Kinh Pháp Hoa)</item>
+        <item>Tân Tế Công 2011 HD - Thuyết minh tiếng Việt </item>
+        <item>Sự Tích Di Lặc Bồ Tát </item>
+        <item>Khuyên Người Niệm Phật (Trọn Bộ, Rất Hay)</item>
+        <item>Nhạc Chú Đại Bi (Có Chữ, Tiếng Phạn) (Rất Hay) (HD)</item>
+        <item>Phim hoạt hình: Tây Du Ký</item>
+        <item>Tụng "Kinh Hồng Danh Sám Hối" (Có Phụ Đề)</item>
          
     </string-array>
     
@@ -106,5 +117,14 @@
 	    <item>Phật Âm</item>
 	    <item>Thích Trí Thoát</item>
 	    <item>Phật Âm</item>
+	    <item>Thích Trí Thoát</item>
+	    <item>Phật Âm</item>
+	    <item>>Phật Âm</item>
+	    <item>Cư Sĩ Diệu Âm</item>
+	    <item>Phật Âm</item>
+	    <item>Phật Âm</item>
+	    <item>Thích Trí Thoát</item>
+	    <item>Phật Âm</item>
+	    <item>Thích Trí Thoát</item>
     </string-array>
 </resources>

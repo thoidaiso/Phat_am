@@ -4,10 +4,6 @@ package com.example.showlistcontent;
 import java.util.ArrayList;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,24 +12,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView.FindListener;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.example.listview.CategoryAdapter;
 import com.example.listview.Category_with_number_Adapter;
 import com.example.listview.ListVideoAdapter;
-import com.example.listview.Model_Category;
 import com.example.listview.Model_Category_with_number;
 import com.example.listview.Model_Video;
-import com.example.phat_am.MainActivity;
 import com.example.phat_am.R;
-import com.example.phat_am.SplashScreen;
-import com.example.phat_am.VideoActivity;
-import com.example.showlistcontent.VideoMainActivity.FragmentPagerAdapter;
 import com.example.utils.Helper;
 
 public class home_fragment extends SherlockFragment{
@@ -49,8 +38,9 @@ public class home_fragment extends SherlockFragment{
 	Button btn_more_video;
 	ViewPager pager;
 	static int NUM_PAGES = 3;
-	static String VIDEO_PAGE = "1";
+	static int VIDEO_PAGE = 1;
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -91,22 +81,10 @@ public class home_fragment extends SherlockFragment{
 			button[1].setBackground(getResources().getDrawable(R.drawable.red_gradient));
 		else
 			button[1].setBackgroundDrawable(getResources().getDrawable(R.drawable.red_gradient));
-//		Declare list view show some new video
-		String[] list_video = getResources().getStringArray(R.array.detail_video_array);
-		String[] list_author = getResources().getStringArray(R.array.detail_video_author_array);
-		Bitmap bm = BitmapFactory.decodeResource(this.getResources(), R.drawable.image);
-
-		list_model_new_video.clear();
-		for(int i=0; i<10; i++)
-		{
-			list_model_new_video.add(new Model_Video(bm, list_video[i], list_author[i]));
-		}
 		
-		list_view_new_video = (ListView)rootView.findViewById(R.id.home_fragment_list_video);
-		adapter_new_video = new ListVideoAdapter(getSherlockActivity(), list_model_new_video);
-		list_view_new_video.setAdapter(adapter_new_video);
-		list_view_new_video.setOnItemClickListener(on_video_click);
-		Helper.getListViewSize(list_view_new_video);
+		Fragment fragment = new video_fragment("new", "rating");
+		FragmentManager childmanager = getFragmentManager();
+		childmanager.beginTransaction().replace(R.id.home_fragment_fragment, fragment).commit();
 		
 		btn_more_video = (Button)rootView.findViewById(R.id.home_fragment_btn_show_more_video);
 		btn_more_video.setOnClickListener(OnClickShowMoreVideo);
@@ -148,24 +126,22 @@ public class home_fragment extends SherlockFragment{
 		
 		@Override
 		public void onClick(View v) {
-			FragmentManager manager = getChildFragmentManager();
-			Fragment fragment = null;
 			//Top video
-			if (VIDEO_PAGE.equals("0"))
+			if (VIDEO_PAGE == 0)
 			{
 				Intent i = new Intent(getSherlockActivity(), VideoMainActivity.class);
 				i.putExtra("type", 0);
                 startActivity(i);
 			}
 			//New Video
-			else if (VIDEO_PAGE.equals("1"))
+			else if (VIDEO_PAGE == 1)
 			{
 				Intent i = new Intent(getSherlockActivity(), VideoMainActivity.class);
 				i.putExtra("type", 1);
                 startActivity(i);
 			}
 			//Random Video
-			else if (VIDEO_PAGE.equals("2"))
+			else if (VIDEO_PAGE == 2)
 			{
 				Intent i = new Intent(getSherlockActivity(), VideoMainActivity.class);
 				i.putExtra("type", 2);
@@ -177,6 +153,7 @@ public class home_fragment extends SherlockFragment{
 	//When click buttons to show type of video
 private View.OnClickListener OnButtonClickListener = new View.OnClickListener() {
 		
+		@SuppressWarnings("deprecation")
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
@@ -186,31 +163,26 @@ private View.OnClickListener OnButtonClickListener = new View.OnClickListener() 
 				v.setBackground(getResources().getDrawable(R.drawable.red_gradient));
 			else
 				v.setBackgroundDrawable(getResources().getDrawable(R.drawable.red_gradient));
-			VIDEO_PAGE = v.getTag().toString();
+			VIDEO_PAGE = Integer.parseInt(v.getTag().toString());
+			Fragment fragment = null;
+			switch (VIDEO_PAGE) {
+			case 0:
+				fragment = new video_fragment("top", "rating");
+				break;
+			case 1:
+				fragment = new video_fragment("new", "rating");
+				break;
+			case 2:
+				fragment = new video_fragment("random", "rating");
+				break;
+			default:
+				break;
+			}
+			FragmentManager childmanager = getFragmentManager();
+			childmanager.beginTransaction().replace(R.id.home_fragment_fragment, fragment).commit();
 			Log.v("click button", v.getTag().toString());
 		}
 	};
-	
-	private OnItemClickListener on_video_click = new OnItemClickListener() {
-
-		@Override
-		public void onItemClick(AdapterView<?> arg0, View view, int arg2,
-				long arg3) {
-			// TODO Auto-generated method stub
-//			FragmentManager manager = getChildFragmentManager();
-//			Fragment fragment = null;
-//			String name = list_model.get(arg2).getName();
-//			if (name.equals("Chuyên mục"))
-//			{
-//				fragment = new category_fragment();
-//				manager.beginTransaction().replace(R.id.home_fragment, fragment).commit();
-//			}
-			Intent i = new Intent(getSherlockActivity(), VideoInfoActivity.class);
-			i.putExtra("link", list_model_new_video.get(arg2).getName().toString());
-			startActivity(i);
-		}
-	};
-	
 	
 		
 }
