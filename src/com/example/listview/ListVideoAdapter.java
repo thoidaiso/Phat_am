@@ -22,28 +22,18 @@ public class ListVideoAdapter extends ArrayAdapter<Model_Video>{
 	
 	private final Activity context;
 	private  ArrayList<Model_Video> list;
-	private int count = 10;
 	static class ViewHolder {
 	    public TextView name;
 	    public TextView author;
 	    public ImageView image;
 	}
-	public ListVideoAdapter(Activity context, ArrayList<Model_Video> list, int count) {
+	public ListVideoAdapter(Activity context, ArrayList<Model_Video> list) {
 		// TODO Auto-generated constructor stub
 		super(context, R.layout.video_list_item, list);
 		this.context = context;
 		this.list = list;
-		if (count !=0)
-		{
-			this.count = count;
-		}
 	}
 	
-	@Override
-	public int getCount() {
-		// TODO Auto-generated method stub
-		return count;
-	}
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub

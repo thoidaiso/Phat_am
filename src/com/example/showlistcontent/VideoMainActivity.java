@@ -3,7 +3,6 @@ package com.example.showlistcontent;
 
 import java.util.ArrayList;
 
-import loadmore_list.loadmore_video_fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -66,7 +65,7 @@ public class VideoMainActivity extends SherlockFragmentActivity{
 			// TODO Auto-generated method stub
 //			if (postition == 1)
 			{	
-				Fragment fr = new video_fragment("new", "rating");
+				Fragment fr = new loadmore_video_fragment("new", "rating");
 				return fr;
 			}
 //			Fragment fr = new ViewPagerAdapter();

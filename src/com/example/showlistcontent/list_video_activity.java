@@ -31,7 +31,6 @@ public class list_video_activity extends SherlockActivity{
 	ListVideoAdapter adapter;
 	static String type;//top,random,new
 	static String order; //order by date,title,rating
-	static int limit; //limit video will be show
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +39,6 @@ public class list_video_activity extends SherlockActivity{
 		Bundle bun = getIntent().getExtras();
 		type = bun.getString("type");
 		order = bun.getString("order");
-		limit = bun.getInt("limit");
 		
 		setContentView(R.layout.list);
 		String[] list_video = getResources().getStringArray(R.array.detail_video_array);
@@ -54,7 +52,7 @@ public class list_video_activity extends SherlockActivity{
 		}
 		
 		ListView list = (ListView)findViewById(R.id.list_view);
-		adapter = new ListVideoAdapter(this, list_model, 10);
+		adapter = new ListVideoAdapter(this, list_model);
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(OnItemClick);
 	}

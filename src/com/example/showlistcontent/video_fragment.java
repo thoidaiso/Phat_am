@@ -3,6 +3,7 @@ package com.example.showlistcontent;
 
 import java.util.ArrayList;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -24,6 +25,7 @@ import com.example.listview.Model_Video;
 import com.example.phat_am.R;
 import com.example.utils.Helper;
 
+@SuppressLint("ValidFragment")
 public class video_fragment extends SherlockFragment{
 
 	public ArrayList<Model_Video> list_model = new ArrayList<Model_Video>();
@@ -31,15 +33,14 @@ public class video_fragment extends SherlockFragment{
 	ListVideoAdapter adapter;
 	static String type;//top,random,new
 	static String order; //order by date,title,rating
-	static int limit = 8; //limit video will be show
 	
-	public video_fragment()
-	{
-		this.type = "new";
-		this.order = "rating";
-		Log.v("video fragment type", ""+type);
-		Log.v("order", ""+order);
-	}
+//	public video_fragment()
+//	{
+//		this.type = "new";
+//		this.order = "rating";
+//		Log.v("video fragment type", ""+type);
+//		Log.v("order", ""+order);
+//	}
 	public video_fragment(String type, String order) {
 		// TODO Auto-generated constructor stub
 		this.type = type;
@@ -64,7 +65,7 @@ public class video_fragment extends SherlockFragment{
 		}
 		
 		ListView list = (ListView)rootView.findViewById(R.id.list_view);
-		adapter = new ListVideoAdapter(getSherlockActivity(), list_model, limit);
+		adapter = new ListVideoAdapter(getSherlockActivity(), list_model);
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(OnItemClick);
 		Helper.getListViewSize(list);
