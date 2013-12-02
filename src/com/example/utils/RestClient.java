@@ -1,12 +1,14 @@
 package com.example.utils;
 
+import android.util.Log;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 public class RestClient {
 
-	public static final String BASE_URL = " http://phatam.com/rest/public/index.php/";
+	public static final String BASE_URL = "http://phatam.com/rest/public/index.php/";
 
 	private static AsyncHttpClient client = new AsyncHttpClient();
 
@@ -16,6 +18,7 @@ public class RestClient {
 
 	public static void get(String url, RequestParams params,
 			AsyncHttpResponseHandler responseHandler) {
+		Log.v("array received", "" + getAbsoluteUrl(url) + "==="+ params);
 		client.get(getAbsoluteUrl(url), params, responseHandler);
 	}
 

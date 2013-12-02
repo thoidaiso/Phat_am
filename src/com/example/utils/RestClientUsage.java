@@ -12,22 +12,28 @@ import android.util.Log;
 
 import com.example.listview.ArtistItem;
 import com.example.listview.CategoryItem;
+import com.example.listview.Episode;
+import com.example.listview.Tag;
 import com.example.listview.VideoInfo;
 import com.example.listview.VideoItem;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
-@SuppressLint("DefaultLocale")
-class RestClientUsage {
+public class RestClientUsage {
 	int limit = 15;
 
-	public List<CategoryItem> getAllCategory() throws JSONException {
+	public RestClientUsage() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public static List<CategoryItem> getAllCategory() throws JSONException {
 
 		final List<CategoryItem> data = new ArrayList<CategoryItem>();
-
+		Log.v("array received", "" + data.toString());
 		RestClient.get("category", null, new JsonHttpResponseHandler() {
 			@Override
 			public void onSuccess(JSONObject result) {
 				JSONArray jArray;
+				Log.v("array received", "" + result.toString());
 				try {
 					jArray = result.getJSONArray("videos");
 					Log.v("array received", "" + jArray.toString());
@@ -51,19 +57,22 @@ class RestClientUsage {
 		});
 		return data;
 	}
-// get videos by category with ordeBy and offset
+
+	// get videos by category with ordeBy and offset
 	@SuppressLint("DefaultLocale")
-	public List<VideoItem> getVideoByCategory(int id, String orderBy,
-			String offSet) {
+	public static List<VideoItem> getVideoByCategory(int id, String orderBy,
+			int offSet) {
 		final List<VideoItem> data = new ArrayList<VideoItem>();
 		String url = String.format("category/%d/%s/%d", id, orderBy, offSet);
+		Log.v("url", url);
 		RestClient.get(url, null, new JsonHttpResponseHandler() {
 			@Override
 			public void onSuccess(JSONObject result) {
 				JSONArray jArray;
+				Log.v("Result -------", result.toString());
 				try {
 					jArray = result.getJSONArray("videos");
-					Log.v("array received", "" + jArray.toString());
+					Log.v("array xxx received", "" + jArray.toString());
 					for (int i = 0; i < jArray.length(); i++) {
 						JSONObject line_object = jArray.getJSONObject(i);
 						int id = line_object.getInt("id");
@@ -75,13 +84,15 @@ class RestClientUsage {
 								.getString("description");
 						String yt_thumb = line_object.getString("yt_thumb");
 						int site_views = line_object.getInt("site_views");
-						int mp3 = line_object.getInt("audio");
+						String mp3 = line_object.getString("audio");
 						String yt_id = line_object.getString("yt_id");
 						VideoItem item = new VideoItem(uniq_id, artist,
 								video_title, description, yt_id, yt_thumb,
 								site_views);
 						data.add(item);
 					}
+//					RestClientUsage.getVideoFullInfo(data.get(0));
+					RestClientUsage.getVideoRecommend(data.get(0), "same_artist");
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -91,16 +102,16 @@ class RestClientUsage {
 		return data;
 	}
 
-	// get Top, latest, random videos
-	@SuppressLint("DefaultLocale")
-	public List<VideoItem> getMainVideos(String url) {
-		final List<VideoItem> data = new ArrayList<VideoItem>();
+	public static VideoItem getVideoRecommend(VideoItem video, final String type) {
+		final List<VideoInfo> related = new ArrayList<VideoInfo>();
+		String url = String.format("video/%s/%s", video.getVideoId(), type);
 		RestClient.get(url, null, new JsonHttpResponseHandler() {
 			@Override
 			public void onSuccess(JSONObject result) {
 				JSONArray jArray;
 				try {
-					jArray = result.getJSONArray("videos");
+					// Get related
+					jArray = result.getJSONArray(type);
 					Log.v("array received", "" + jArray.toString());
 					for (int i = 0; i < jArray.length(); i++) {
 						JSONObject line_object = jArray.getJSONObject(i);
@@ -113,7 +124,126 @@ class RestClientUsage {
 								.getString("description");
 						String yt_thumb = line_object.getString("yt_thumb");
 						int site_views = line_object.getInt("site_views");
-						int mp3 = line_object.getInt("audio");
+						String mp3 = line_object.getString("audio");
+						String yt_id = line_object.getString("yt_id");
+						VideoItem item = new VideoItem(uniq_id, artist,
+								video_title, description, yt_id, yt_thumb,
+								site_views);
+						related.add(item);
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		// set properties
+		if (type.equals("same_artist")) {
+			video.setSameArtist(related);
+		} else {
+			video.setBestInCategory(related);
+		}
+		return video;
+	}
+
+	public static VideoItem getVideoFullInfo(VideoItem video) {
+		Log.v("Get Video Full Info", video.toString());
+		final List<Episode> episodes = new ArrayList<Episode>();
+		final List<VideoInfo> related = new ArrayList<VideoInfo>();
+		final List<Tag> tags = new ArrayList<Tag>();
+		String url = String.format("video/%s", video.getVideoId());
+		Log.v("===================================================", url);
+		RestClient.get(url, null, new JsonHttpResponseHandler() {
+			@Override
+			public void onSuccess(JSONObject result) {
+				JSONArray jArray;
+				// Get Episode
+				try {
+					jArray = result.getJSONArray("tags");
+					jArray = result.getJSONArray("episode");
+					Log.v("array full video received", "" + jArray.toString());
+					for (int i = 0; i < jArray.length(); i++) {
+						JSONObject line_object = jArray.getJSONObject(i);
+						String tag = line_object.getString("tag");
+						String safe_tag = line_object.getString("safe_tag");
+						Tag item = new Tag(tag, safe_tag);
+						tags.add(item);
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				try {
+					jArray = result.getJSONArray("episode");
+					Log.v("array received", "" + jArray.toString());
+					for (int i = 0; i < jArray.length(); i++) {
+						JSONObject line_object = jArray.getJSONObject(i);
+						String uniq_id = line_object.getString("uniq_id");
+						String yt_id = line_object.getString("yt_id");
+						String episode = line_object.getString("episode");
+						int episode_id = line_object.getInt("episode_id");
+						Episode item = new Episode(uniq_id, episode_id, yt_id,
+								episode);
+						episodes.add(item);
+					}
+					// Get related
+					jArray = result.getJSONArray("related");
+					Log.v("array received", "" + jArray.toString());
+					for (int i = 0; i < jArray.length(); i++) {
+						JSONObject line_object = jArray.getJSONObject(i);
+						int id = line_object.getInt("id");
+						String uniq_id = line_object.getString("uniq_id");
+						String artist = line_object.getString("artist");
+						String video_title = line_object
+								.getString("video_title");
+						String description = line_object
+								.getString("description");
+						String yt_thumb = line_object.getString("yt_thumb");
+						int site_views = line_object.getInt("site_views");
+						String mp3 = line_object.getString("audio");
+						String yt_id = line_object.getString("yt_id");
+						VideoItem item = new VideoItem(uniq_id, artist,
+								video_title, description, yt_id, yt_thumb,
+								site_views);
+						related.add(item);
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		// set properties
+		video.setEpisode(episodes);
+		video.setRelated(related);
+		video.setTag(tags);
+		return video;
+	}
+
+	// get Top, latest, random videos
+	@SuppressLint("DefaultLocale")
+	public static List<VideoItem> getMainVideos(String url) {
+		final List<VideoItem> data = new ArrayList<VideoItem>();
+		RestClient.get(url, null, new JsonHttpResponseHandler() {
+			@Override
+			public void onSuccess(JSONObject result) {
+				JSONArray jArray;
+				try {
+					jArray = result.getJSONArray("videos");
+					Log.v("array getMainVideos received", "" + jArray.toString());
+					for (int i = 0; i < jArray.length(); i++) {
+						JSONObject line_object = jArray.getJSONObject(i);
+						int id = line_object.getInt("id");
+						String uniq_id = line_object.getString("uniq_id");
+						String artist = line_object.getString("artist");
+						String video_title = line_object
+								.getString("video_title");
+						String description = line_object
+								.getString("description");
+						String yt_thumb = line_object.getString("yt_thumb");
+						int site_views = line_object.getInt("site_views");
+						String mp3 = line_object.getString("audio");
 						String yt_id = line_object.getString("yt_id");
 						VideoItem item = new VideoItem(uniq_id, artist,
 								video_title, description, yt_id, yt_thumb,
@@ -128,8 +258,9 @@ class RestClientUsage {
 		});
 		return data;
 	}
+	
 	@SuppressLint("DefaultLocale")
-	public List<ArtistItem> getArtist(String orderBy, int offSet) {
+	public static List<ArtistItem> getArtist(String orderBy, int offSet) {
 		final List<ArtistItem> data = new ArrayList<ArtistItem>();
 		String url = String.format("artist/%s/%d", orderBy, offSet);
 		RestClient.get(url, null, new JsonHttpResponseHandler() {
@@ -138,7 +269,7 @@ class RestClientUsage {
 				JSONArray jArray;
 				try {
 					jArray = result.getJSONArray("videos");
-					Log.v("array received", "" + jArray.toString());
+					Log.v("array artist received", "" + jArray.toString());
 					for (int i = 0; i < jArray.length(); i++) {
 						JSONObject line_object = jArray.getJSONObject(i);
 						int cnt = line_object.getInt("cnt");
