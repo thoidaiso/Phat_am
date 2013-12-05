@@ -38,6 +38,7 @@ import android.widget.ListView;
 import android.widget.MediaController;
 import android.widget.RemoteViews;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.MenuItem;
 import com.example.listview.ListVideoAdapter;
 import com.example.listview.Model_Video;
 import com.example.showlistcontent.VideoMainActivity;
@@ -139,9 +140,24 @@ public class VideoViewActivity extends SherlockFragmentActivity{
 		
 		YourAsyncTask async = new YourAsyncTask();
 		async.execute();
+		
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //		CustomNotification();
 	}
 	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			onBackPressed();
+			break;
+
+		default:
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
 	@Override
 		public void onConfigurationChanged(Configuration newConfig) {
 			// TODO Auto-generated method stub

@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.MenuItem;
 import com.example.listview.VideoItem;
 import com.example.phat_am.R;
 import com.example.phat_am.VideoViewActivity;
@@ -67,8 +68,27 @@ public class VideoInfoActivity extends SherlockActivity {
 		RestClientUsage.getArtist("artist", 0);
 		RestClientUsage.getArtist("cnt", 10);
 //		 RestClientUsage.getVideoFullInfo(videos.get(0));
+		
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 	}
+	
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			onBackPressed();
+			break;
 
+		default:
+			break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	
+	
 	private OnItemClickListener OnItemClick = new OnItemClickListener() {
 
 		@Override
@@ -82,5 +102,23 @@ public class VideoInfoActivity extends SherlockActivity {
 			startActivity(i);
 		}
 	};
+	
+//	protected void onDestroy() {
+//		Log.v("on destroy actitity","--------------------------------");
+//	}
+	
+//	@Override
+//	public void finish() {
+//		// TODO Auto-generated method stub
+//		Log.v("on finish---","----------------");
+//		super.finish();
+//	}
+//	
+//	@Override
+//	protected void onStop() {
+//		// TODO Auto-generated method stub
+//		Log.v("on stop","==================================");
+//		super.onStop();
+//	}
 
 }
