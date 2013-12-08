@@ -4,25 +4,18 @@ package com.example.showlistcontent;
 import java.util.ArrayList;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.example.listview.ListVideoAdapter;
 import com.example.listview.Model_Video;
-import com.example.phat_am.MainActivity;
 import com.example.phat_am.R;
-import com.example.phat_am.VideoViewActivity;
 
 public class VideoMainActivity extends SherlockFragmentActivity{
 
@@ -113,7 +106,7 @@ public class VideoMainActivity extends SherlockFragmentActivity{
 			{
 				return getString(R.string.type_video_title);
 			}
-			return ((CharSequence)"");
+			return ("");
 //			return "Section" + (position +1);
 			
 		}

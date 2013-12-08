@@ -27,8 +27,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
 
 /**
  * Adapter that delegates to a wrapped LisAdapter, much as
@@ -61,11 +59,13 @@ public class AdapterWrapper extends ArrayAdapter<Model_Video> {
 	  this.wrapped=wrapped;
 	  
 	  wrapped.registerDataSetObserver(new DataSetObserver() {
-	    public void onChanged() {
+	    @Override
+		public void onChanged() {
 	      notifyDataSetChanged();
 	    }
 	    
-	    public void onInvalidated() {
+	    @Override
+		public void onInvalidated() {
 	      notifyDataSetInvalidated();
 	    }
 	  });
@@ -94,7 +94,7 @@ public class AdapterWrapper extends ArrayAdapter<Model_Video> {
     */
   @Override
   public Model_Video getItem(int position) {
-    return (Model_Video) (wrapped.getItem(position));
+    return (wrapped.getItem(position));
   }
 
   /**

@@ -3,7 +3,6 @@ package com.example.phat_am;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -34,16 +33,12 @@ import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.MediaController;
 import android.widget.RemoteViews;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.MenuItem;
-import com.example.listview.ListVideoAdapter;
-import com.example.listview.Model_Video;
 import com.example.showlistcontent.VideoMainActivity;
 import com.example.showlistcontent.video_fragment;
-import com.example.utils.Helper;
 import com.example.utils.VideoViewCustom;
 
 public class VideoViewActivity extends SherlockFragmentActivity{

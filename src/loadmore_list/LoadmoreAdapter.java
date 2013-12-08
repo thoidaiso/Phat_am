@@ -67,7 +67,8 @@ class LoadmoreAdapter extends EndlessAdapter {
 //    rotate.setRepeatCount(Animation.INFINITE);
 //  }
   
-  public View getView(int position, View convertView, ViewGroup parent) {
+  @Override
+public View getView(int position, View convertView, ViewGroup parent) {
 	  Log.v("getView position", ""+position);
 	  Log.v("getView count", ""+super.getCount());
 	  if (position < super.getCount()-1) 
@@ -139,7 +140,7 @@ class LoadmoreAdapter extends EndlessAdapter {
     if (getWrappedAdapter().getCount()<75) {
       @SuppressWarnings("unchecked")
 //      ArrayAdapter<Integer> a=(ArrayAdapter<Integer>)getWrappedAdapter();
-      ArrayAdapter<Model_Video> a = (ArrayAdapter<Model_Video>) getWrappedAdapter();
+      ArrayAdapter<Model_Video> a = getWrappedAdapter();
       
       for (int i=0;i<15;i++) 
       { 

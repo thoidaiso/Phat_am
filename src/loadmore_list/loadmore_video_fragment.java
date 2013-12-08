@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,13 +16,9 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.example.listview.CategoryAdapter;
-import com.example.listview.ListVideoAdapter;
-import com.example.listview.Model_Category;
 import com.example.listview.Model_Video;
 import com.example.phat_am.R;
 import com.example.showlistcontent.VideoInfoActivity;
-import com.example.utils.Helper;
 
 public class loadmore_video_fragment extends SherlockFragment{
 
@@ -36,15 +31,15 @@ public class loadmore_video_fragment extends SherlockFragment{
 	
 	public loadmore_video_fragment()
 	{
-		this.type = "new";
-		this.order = "rating";
+		loadmore_video_fragment.type = "new";
+		loadmore_video_fragment.order = "rating";
 		Log.v("video fragment type", ""+type);
 		Log.v("order", ""+order);
 	}
 	public loadmore_video_fragment(String type, String order) {
 		// TODO Auto-generated constructor stub
-		this.type = type;
-		this.order = order;
+		loadmore_video_fragment.type = type;
+		loadmore_video_fragment.order = order;
 		Log.v("video fragment type", ""+type);
 		Log.v("order", ""+order);
 	}

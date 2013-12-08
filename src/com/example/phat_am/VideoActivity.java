@@ -1,6 +1,5 @@
 package com.example.phat_am;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.webkit.WebSettings.PluginState;
 import android.webkit.WebChromeClient;

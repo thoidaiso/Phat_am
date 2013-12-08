@@ -17,7 +17,7 @@
 	<string name="related_video">Video liên quan</string>
 	<string name="same_author_video">Video cùng Tác giả</string>
 	<string name="hot_video">Video hay</string>
-	
+	<string name="empty"></string>
 	<string name="type_video_rating">Lượt xem</string>
 	<string name="type_video_date">Ngày</string>
 	<string name="type_video_title">Tiêu đề</string>

@@ -1,17 +1,8 @@
 package com.example.phat_am;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
-import android.support.v4.view.ViewPager;
-
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
@@ -70,6 +61,7 @@ public class BaseActivity extends SlidingFragmentActivity {
 //		return super.onOptionsItemSelected(item);
 //	}
 	
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:

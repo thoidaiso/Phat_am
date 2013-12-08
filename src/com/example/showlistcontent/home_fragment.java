@@ -82,7 +82,7 @@ public class home_fragment extends SherlockFragment{
 		else
 			button[1].setBackgroundDrawable(getResources().getDrawable(R.drawable.red_gradient));
 		
-		Fragment fragment = new video_fragment("new", "rating");
+		Fragment fragment = new video_fragment("latestvideos", "added");
 		FragmentManager childmanager = getFragmentManager();
 		childmanager.beginTransaction().replace(R.id.home_fragment_fragment, fragment).commit();
 		
@@ -167,13 +167,13 @@ private View.OnClickListener OnButtonClickListener = new View.OnClickListener() 
 			Fragment fragment = null;
 			switch (VIDEO_PAGE) {
 			case 0:
-				fragment = new video_fragment("top", "rating");
+				fragment = new video_fragment("topvideos", "rating");
 				break;
 			case 1:
-				fragment = new video_fragment("new", "rating");
+				fragment = new video_fragment("latestvideos", "rating");
 				break;
 			case 2:
-				fragment = new video_fragment("random", "rating");
+				fragment = new video_fragment("randomvideos", "rating");
 				break;
 			default:
 				break;

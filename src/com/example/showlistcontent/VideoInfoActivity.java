@@ -1,8 +1,6 @@
 package com.example.showlistcontent;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +14,6 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
-import com.example.listview.VideoItem;
 import com.example.phat_am.R;
 import com.example.phat_am.VideoViewActivity;
 import com.example.utils.RestClientUsage;

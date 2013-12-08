@@ -25,10 +25,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicBoolean;
 import com.example.listview.Model_Video;
 import com.example.phat_am.R;
 
@@ -197,7 +194,8 @@ abstract public class EndlessAdapter extends AdapterWrapper {
    * Masks ViewType so the AdapterView replaces the
    * "Pending" row when new data is loaded.
    */
-  public int getItemViewType(int position) {
+  @Override
+public int getItemViewType(int position) {
     if (position == getWrappedAdapter().getCount()) {
       return(IGNORE_ITEM_VIEW_TYPE);
     }
@@ -211,7 +209,8 @@ abstract public class EndlessAdapter extends AdapterWrapper {
    * 
    * @see #getItemViewType(int)
    */
-  public int getViewTypeCount() {
+  @Override
+public int getViewTypeCount() {
 	Log.v("get type view count","");
     return(super.getViewTypeCount() + 1);
   }
@@ -396,7 +395,8 @@ abstract public class EndlessAdapter extends AdapterWrapper {
    * 
    * @return Context
    */
-  public Context getContext() {
+  @Override
+public Context getContext() {
     return(context);
   }
 }
