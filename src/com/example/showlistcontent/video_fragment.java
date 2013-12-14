@@ -68,7 +68,7 @@ public class video_fragment extends SherlockProgressFragment {
 		list = (ListView) mContentView.findViewById(R.id.list_view);
 		adapter = new ListVideoAdapter(getSherlockActivity(), list_model);
 		list.setAdapter(adapter);
-		
+
 		list.setOnItemClickListener(OnItemClick);
 		return super.onCreateView(inflater, container, savedInstanceState);
 
@@ -77,7 +77,7 @@ public class video_fragment extends SherlockProgressFragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		// setContentView(mContentView);
+		setContentView(mContentView);
 		setEmptyText(R.string.empty);
 		obtainData(this.type);
 	}
@@ -108,10 +108,9 @@ public class video_fragment extends SherlockProgressFragment {
 								site_views);
 						list_model.add(item);
 						adapter.notifyDataSetChanged();
-						Helper.getListViewSize(list);
-						Log.v("====Size of list view", ""+list.getCount());
+
 					}
-					Log.v("Size of list view", ""+list.getCount());
+					Helper.getListViewSize(list);
 
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
@@ -120,7 +119,7 @@ public class video_fragment extends SherlockProgressFragment {
 			}
 		});
 		mHandler = new Handler();
-		mHandler.postDelayed(mShowContentRunnable, 100);
+		mHandler.postDelayed(mShowContentRunnable, 500);
 	}
 
 	private OnItemClickListener OnItemClick = new OnItemClickListener() {

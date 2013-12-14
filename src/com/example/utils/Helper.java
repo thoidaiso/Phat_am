@@ -26,11 +26,13 @@ public class Helper {
         }
       //setting listview item in adapter
         ViewGroup.LayoutParams params = myListView.getLayoutParams();
-        params.height = totalHeight + (myListView.getDividerHeight() * (myListAdapter.getCount() - 1));
-        Log.v("Param", ""+params.height);
-        myListView.setLayoutParams(params);
-        myListView.requestLayout();
-        // print height of adapter on log
-        Log.i("height of listItem:", String.valueOf(totalHeight));
+        if(params!= null){
+	        params.height = totalHeight + (myListView.getDividerHeight() * (myListAdapter.getCount() - 1));
+	        Log.v("Param", ""+params.height);
+	        myListView.setLayoutParams(params);
+	        myListView.requestLayout();
+	        // print height of adapter on log
+	        Log.i("height of listItem:", String.valueOf(totalHeight));
+        }
     }
 }

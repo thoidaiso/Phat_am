@@ -14,7 +14,7 @@ public class VideoItem extends VideoInfo {
 			String description, String yt_id, String yt_thumb, int site_views) {
 		this.uniq_id = uniq_id;
 		this.artist = artist;
-		this.video_title = artist;
+		this.video_title = video_title;
 		this.description = description;
 		this.yt_id = yt_id;
 		this.yt_thumb = yt_thumb;
