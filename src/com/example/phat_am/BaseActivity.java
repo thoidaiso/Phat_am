@@ -3,15 +3,18 @@ package com.example.phat_am;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
+
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 public class BaseActivity extends SlidingFragmentActivity {
 
 	private int mTitleRes;
 	protected ListFragment mFrag;
+	protected ImageLoader imageLoader = ImageLoader.getInstance();
 
 	public BaseActivity(int titleRes) {
 		mTitleRes = titleRes;
@@ -44,43 +47,43 @@ public class BaseActivity extends SlidingFragmentActivity {
 		sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 		sm.setBackgroundResource(R.color.nav_background);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		
+
 	}
 
-//	@Override
-//	public boolean onOptionsItemSelected(android.view.MenuItem item) {
-//		// TODO Auto-generated method stub
-//		switch (item.getItemId()) {
-//		case android.R.id.home:
-//			toggle();
-//			return true;
-////		case R.id.github:
-////			Util.goToGitHub(this);
-////			return true;
-//		}
-//		return super.onOptionsItemSelected(item);
-//	}
-	
+	// @Override
+	// public boolean onOptionsItemSelected(android.view.MenuItem item) {
+	// // TODO Auto-generated method stub
+	// switch (item.getItemId()) {
+	// case android.R.id.home:
+	// toggle();
+	// return true;
+	// // case R.id.github:
+	// // Util.goToGitHub(this);
+	// // return true;
+	// }
+	// return super.onOptionsItemSelected(item);
+	// }
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			toggle();
 			return true;
-//		case R.id.github:
-//			Util.goToGitHub(this);
-//			return true;
+			// case R.id.github:
+			// Util.goToGitHub(this);
+			// return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
 
-//	@Override
-//	public boolean onCreateOptionsMenu(android.view.Menu menu) {
-//		// TODO Auto-generated method stub
-//		getMenuInflater().inflate(R.menu.main, menu);
-//		return true;
-//	}
-	
+	// @Override
+	// public boolean onCreateOptionsMenu(android.view.Menu menu) {
+	// // TODO Auto-generated method stub
+	// getMenuInflater().inflate(R.menu.main, menu);
+	// return true;
+	// }
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getSupportMenuInflater().inflate(R.menu.main, menu);

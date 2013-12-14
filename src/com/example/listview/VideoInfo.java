@@ -10,9 +10,14 @@ public class VideoInfo {
 	String yt_thumb;
 	int site_views;
 	String mp3;
+	String category;
 
 	public int getId() {
 		return this.id;
+	}
+	
+	public String getCategory() {
+		return this.category;
 	}
 
 	public String getVideoId() {
@@ -46,4 +51,33 @@ public class VideoInfo {
 	public String getMp3() {
 		return this.mp3;
 	}
+	public void setVideoId(String id){
+		this.uniq_id = id;
+	}
+	public void setArtist(String artist){
+		this.artist = artist;
+	}
+	public void setVideoTitle(String title){
+		this.video_title = title;
+	}
+	public void setDesc(String desc){
+		this.description = desc;
+	}
+	public void setYoutubeId(String id){
+		this.yt_id = id;
+	}
+	public void setYoutubeImage(String img){
+		this.yt_thumb = img;
+	}
+	public void setSiteView(int site_views){
+		this.site_views = site_views;
+	}
+	public void setMp3(String mp3){
+		this.mp3 = mp3;
+	}
+	
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
 }

@@ -67,12 +67,12 @@
 			      android:layout_width="match_parent"
 			      android:layout_height="wrap_content"/>
 			  
-			  <Button 
+			  <!-- <Button 
 			      android:id="@+id/home_fragment_btn_show_more_video"
 			      android:layout_width="match_parent"
 			      android:layout_height="wrap_content"
 			      android:layout_gravity="bottom|center"
-			      android:text="@string/more"/>
+			      android:text="@string/more"/> -->
 			
 		</LinearLayout>
 	</ScrollView>

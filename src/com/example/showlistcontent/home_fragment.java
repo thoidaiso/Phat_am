@@ -86,8 +86,8 @@ public class home_fragment extends SherlockFragment{
 		FragmentManager childmanager = getFragmentManager();
 		childmanager.beginTransaction().replace(R.id.home_fragment_fragment, fragment).commit();
 		
-		btn_more_video = (Button)rootView.findViewById(R.id.home_fragment_btn_show_more_video);
-		btn_more_video.setOnClickListener(OnClickShowMoreVideo);
+//		btn_more_video = (Button)rootView.findViewById(R.id.home_fragment_btn_show_more_video);
+//		btn_more_video.setOnClickListener(OnClickShowMoreVideo);
 		return rootView;
 		
 	}
@@ -122,34 +122,34 @@ public class home_fragment extends SherlockFragment{
 	};
 	
 	//Onclick button More (Them) to watch more video
-	private View.OnClickListener OnClickShowMoreVideo = new View.OnClickListener() {
-		
-		@Override
-		public void onClick(View v) {
-			//Top video
-			if (VIDEO_PAGE == 0)
-			{
-				Intent i = new Intent(getSherlockActivity(), VideoMainActivity.class);
-				i.putExtra("type", 0);
-                startActivity(i);
-			}
-			//New Video
-			else if (VIDEO_PAGE == 1)
-			{
-				Intent i = new Intent(getSherlockActivity(), VideoMainActivity.class);
-				i.putExtra("type", 1);
-                startActivity(i);
-			}
-			//Random Video
-			else if (VIDEO_PAGE == 2)
-			{
-				Intent i = new Intent(getSherlockActivity(), VideoMainActivity.class);
-				i.putExtra("type", 2);
-                startActivity(i);
-			}
-		}
-	};
-	
+//	private View.OnClickListener OnClickShowMoreVideo = new View.OnClickListener() {
+//		
+//		@Override
+//		public void onClick(View v) {
+//			//Top video
+//			if (VIDEO_PAGE == 0)
+//			{
+//				Intent i = new Intent(getSherlockActivity(), VideoMainActivity.class);
+//				i.putExtra("type", 0);
+//                startActivity(i);
+//			}
+//			//New Video
+//			else if (VIDEO_PAGE == 1)
+//			{
+//				Intent i = new Intent(getSherlockActivity(), VideoMainActivity.class);
+//				i.putExtra("type", 1);
+//                startActivity(i);
+//			}
+//			//Random Video
+//			else if (VIDEO_PAGE == 2)
+//			{
+//				Intent i = new Intent(getSherlockActivity(), VideoMainActivity.class);
+//				i.putExtra("type", 2);
+//                startActivity(i);
+//			}
+//		}
+//	};
+//	
 	//When click buttons to show type of video
 private View.OnClickListener OnButtonClickListener = new View.OnClickListener() {
 		

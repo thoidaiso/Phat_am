@@ -37,7 +37,7 @@ public class video_fragment extends SherlockProgressFragment {
 	public String order; // order by date,title,rating
 	private View mContentView;
 	private Handler mHandler;
-	List<String> AlreadyLoad;
+
 	private Runnable mShowContentRunnable = new Runnable() {
 
 		@Override
@@ -50,14 +50,12 @@ public class video_fragment extends SherlockProgressFragment {
 	public video_fragment() {
 		this.type = "topvideos";
 		this.order = "added";
-		this.AlreadyLoad.add("topvideos");
 	}
 
 	public video_fragment(String type, String order) {
 		// TODO Auto-generated constructor stub
 		this.type = type;
 		this.order = order;
-		this.AlreadyLoad.add(type);
 		Log.v("video fragment type", "" + type);
 		Log.v("order", "" + order);
 	}
@@ -66,12 +64,12 @@ public class video_fragment extends SherlockProgressFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		mContentView = inflater.inflate(R.layout.list, null);
-		this.list_model = new ArrayList<VideoItem>();
+		list_model = new ArrayList<VideoItem>();
 		list = (ListView) mContentView.findViewById(R.id.list_view);
 		adapter = new ListVideoAdapter(getSherlockActivity(), list_model);
 		list.setAdapter(adapter);
+		
 		list.setOnItemClickListener(OnItemClick);
-//		Helper.getListViewSize(list);
 		return super.onCreateView(inflater, container, savedInstanceState);
 
 	}
@@ -79,28 +77,22 @@ public class video_fragment extends SherlockProgressFragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		Log.v("Created View", "===========");
-		setContentView(mContentView);
+		// setContentView(mContentView);
 		setEmptyText(R.string.empty);
 		obtainData(this.type);
 	}
 
 	private void obtainData(String type) {
-		// Show indeterminate progress
 		setContentShown(false);
-		Log.v("=======", type);
-		
-		RestClient.get("latestvideos", null, new JsonHttpResponseHandler() {
+		RestClient.get(type, null, new JsonHttpResponseHandler() {
 			@Override
 			public void onSuccess(JSONObject result) {
 				JSONArray jArray;
-				Log.v("GET==================", "========");
 				try {
 					jArray = result.getJSONArray("videos");
-					Log.v("Top videos", "" + jArray.length());
 					for (int i = 0; i < jArray.length(); i++) {
 						JSONObject line_object = jArray.getJSONObject(i);
-						int id = line_object.getInt("id");
+						// int id = line_object.getInt("id");
 						String uniq_id = line_object.getString("uniq_id");
 						String artist = line_object.getString("artist");
 						String video_title = line_object
@@ -109,15 +101,18 @@ public class video_fragment extends SherlockProgressFragment {
 								.getString("description");
 						String yt_thumb = line_object.getString("yt_thumb");
 						int site_views = line_object.getInt("site_views");
-						String mp3 = line_object.getString("audio");
+						// String mp3 = line_object.getString("audio");
 						String yt_id = line_object.getString("yt_id");
 						VideoItem item = new VideoItem(uniq_id, artist,
 								video_title, description, yt_id, yt_thumb,
 								site_views);
 						list_model.add(item);
-
+						adapter.notifyDataSetChanged();
+						Helper.getListViewSize(list);
+						Log.v("====Size of list view", ""+list.getCount());
 					}
-					Helper.getListViewSize(list);
+					Log.v("Size of list view", ""+list.getCount());
+
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -125,7 +120,7 @@ public class video_fragment extends SherlockProgressFragment {
 			}
 		});
 		mHandler = new Handler();
-		mHandler.postDelayed(mShowContentRunnable, 3000);
+		mHandler.postDelayed(mShowContentRunnable, 100);
 	}
 
 	private OnItemClickListener OnItemClick = new OnItemClickListener() {

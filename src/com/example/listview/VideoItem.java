@@ -36,6 +36,18 @@ public class VideoItem extends VideoInfo {
 		this.mp3 = mp3;
 	}
 
+	public VideoItem() {
+		this.id = -1;
+		this.uniq_id = "";
+		this.artist = "";
+		this.video_title = "";
+		this.description = "";
+		this.yt_id = "";
+		this.yt_thumb = "";
+		this.site_views = 0;
+		this.mp3 = "";
+	}
+
 	// Use for full video description
 	public void setRelated(List<VideoInfo> related) {
 		this.related = related;
